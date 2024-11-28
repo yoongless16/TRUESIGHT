@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Setup MFA</title>
+</head>
+<body>
+    <h1>Setup Multi-Factor Authentication</h1>
+    
+    <div>
+        <h2>Step 1: Install Google Authenticator</h2>
+        <p>If you haven't already, install Google Authenticator on your mobile device.</p>
+    </div>
+    
+    <div>
+        <h2>Step 2: Scan QR Code</h2>
+        <p>Open Google Authenticator and scan this QR code:</p>
+        <img src="data:image/png;base64,{{ qr_code }}" alt="QR Code">
+    </div>
+    
+    <div>
+        <h2>Alternative: Manual Entry</h2>
+        <p>If you can't scan the QR code, enter this code manually:</p>
+        <code>{{ secret }}</code>
+    </div>
+    
+    <div>
+        <p>Once you've set up your authenticator, you can proceed to <a href="{{ url_for('login') }}">login</a>.</p>
+    </div>
+</body>
+</html>

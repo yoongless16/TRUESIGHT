@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Users</title>
+</head>
+<body>
+    <h2>Registered Users</h2>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Email</th>
+            <th>Username</th>
+            <th>Hashed Password</th>
+        </tr>
+        {% for user in users %}
+        <tr>
+            <td>{{ user['id'] }}</td>
+            <td>{{ user['email'] }}</td>
+            <td>{{ user['username'] }}</td>
+            <td>{{ user['password'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

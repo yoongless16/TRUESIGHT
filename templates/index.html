@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrueSight</title>
+    <style>
+/* General Reset */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #ffffff;
+    color: #008080;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    height: 40px;
+}
+
+.navbar .logo {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.navbar a {
+    color: #008080;
+    text-decoration: none;
+    margin-left: 15px;
+    font-size: 1em;
+    transition: color 0.3s;
+}
+
+.navbar a:hover {
+    color: #012e28;
+}
+
+.navbar span a {
+    font-weight: bold;
+}
+
+/* Container Section */
+.container {
+    text-align: center;
+    padding: 40px 20px;
+    margin: 20px auto;
+    max-width: 800px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.container h1 {
+    font-size: 2.5em;
+    color: #008080;
+    margin-bottom: 10px;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.container h2 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+}
+
+.container p {
+    font-size: 1.2em;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+.container .btn {
+    display: inline-block;
+    padding: 15px 30px;
+    background-color: #008080;
+    color: white;
+    text-decoration: none;
+    font-size: 1.2em;
+    border-radius: 25px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.container .btn:hover {
+    background-color: #194b46;
+    transform: translateY(-3px);
+}
+
+/* Cards Section */
+.cards-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin: 40px auto;
+    max-width: 1200px;
+}
+
+.card {
+    flex: 1 1 calc(33.333% - 20px); /* Three cards per row */
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.card h3 {
+    font-size: 1.5em;
+    color: #008080;
+    margin-bottom: 10px;
+}
+
+.card p {
+    font-size: 1em;
+    color: #555;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #008080;
+    color: white;
+    font-size: 0.9em;
+    margin-top: 40px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+
+
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">TrueSight</div>
+        <div>
+            {% if username %}
+                <a href="/logout">Logout</a>
+                <a href="/faqs">FAQs</a>
+                <a href="/about">About</a>
+                <span><a href="/profile">Welcome, {{ username }}</a></span>
+            {% else %}
+                <a href="/login">Login</a>
+                <a href="/signup">Sign Up</a>
+                <a href="/faqs">FAQs</a>
+                <a href="/about">About</a>
+                <span><a href="">Welcome</a></span>
+            {% endif %}
+        </div>
+    </div>
+    <div class="container">
+        {% if username %}
+            <h1>Hello, {{ username }}!</h1>
+        {% else %}
+            <h1>Hello!</h1>
+        {% endif %}
+        <h2>Welcome to TrueSight, your Deepfake Detection System</h2>
+        <p>Analyze images or videos to determine authenticity with the help of our cutting-edge deepfake detection technology.</p>
+        {% if logged_in %}
+            <a href="{{ url_for('detect') }}" class="btn">Start Detection</a>
+        {% else %}
+            <a href="{{ url_for('login') }}" class="btn">Login to Start</a>
+        {% endif %}
+    </div>
+    <div class="cards-container">
+        <div class="card">
+            <h3>Real-Time Detection</h3>
+            <p>Upload images and videos to identify deepfakes.</p>
+        </div>
+        <div class="card">
+            <h3>User-Friendly Interface</h3>
+            <p>Intuitive and simple design for all users.</p>
+        </div>
+        <div class="card">
+            <h3>Secure and Private</h3>
+            <p>Your uploads are processed securely with no data leakage.</p>
+        </div>
+    </div>
+</div>
+<div class="footer">
+    <p>© 2024 TrueSight. All Rights Reserved.</p>
+</div>
+</body>
+</html>

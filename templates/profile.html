@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: whitesmoke;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #ffffff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 22px;
+            color: #00897B;
+            margin-top: 20px;
+        }
+
+        p {
+            font-size: 16px;
+            color: #555;
+        }
+
+        .uploaded-files {
+            margin-top: 20px;
+        }
+
+        .file-item {
+            display: block;
+            margin: 10px 0;
+            text-decoration: none;
+            font-size: 16px;
+            color: #00897B;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .file-item:hover {
+            text-decoration: underline;
+        }
+
+        /* Modal styles */
+        .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.8);
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-content {
+        background-color: white;
+        margin: auto;
+        padding: 20px;
+        border-radius: 10px;
+        max-width: 90%;
+        max-height: 90%;
+        text-align: center;
+    }
+
+    .modal-content img, .modal-content video {
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    .close {
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        color: rgb(255, 252, 252);
+        font-size: 30px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+        .close:hover,
+        .close:focus {
+            color: rgb(255, 252, 252);
+            text-decoration: none;
+        }
+
+        img,
+        video {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        .home-button {
+            margin-top: 30px;
+            display: inline-block;
+            background-color: #00897B;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .home-button:hover {
+            background-color: #00695C;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Profile: {{ username }}</h1>
+        <p>Email: {{ email }}</p>
+        <h2>Your Uploaded Files</h2>
+
+        <div class="uploaded-files">
+            <ul>
+                {% for file in uploads %}
+                <li><a href="{{ url_for('uploaded_file', filename=file.file_path) }}" 
+                    class="file-item" 
+                    data-file="{{ url_for('uploaded_file', filename=file.file_path) }}">
+                    {{ file.file_path.split('/')[-1] }}
+                 </a>
+                 </li>
+                {% endfor %}
+            </ul>
+        </div>
+        
+
+        <!-- Back to Home Button -->
+        <a href="{{ url_for('index') }}" class="home-button">Back to Home</a>
+    </div>
+
+    <!-- Modal for viewing files -->
+    <div id="fileModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="fileContainer"></div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            // Bind the click event for dynamically loaded elements
+            $(document).on("click", ".file-item", function (e) {
+                e.preventDefault(); // Prevent the default link behavior
+                
+                const fileUrl = $(this).data("file");
+                const fileExtension = fileUrl.split('.').pop().toLowerCase();
+    
+                let content = "";
+                if (["jpg", "jpeg", "png", "gif"].includes(fileExtension)) {
+                    content = `<img src="${fileUrl}" alt="Image Preview" style="max-width: 100%; max-height: 100%;">`;
+                } else if (["mp4", "avi", "webm"].includes(fileExtension)) {
+                    content = `<video controls style="max-width: 100%; max-height: 100%;">
+                                  <source src="${fileUrl}" type="video/${fileExtension === "mp4" ? "mp4" : "x-msvideo"}">
+                                  Your browser does not support the video tag.
+                               </video>`;
+                } else {
+                    content = `<p>Preview not available for this file type.</p>`;
+                }
+    
+                $("#fileContainer").html(content); // Add the content to the modal
+                $("#fileModal").fadeIn(); // Show the modal
+            });
+    
+            // Close the modal when clicking the close button
+            $(".close").on("click", function () {
+                $("#fileModal").fadeOut();
+            });
+        });
+    </script>
+    
+</body>
+</html>
