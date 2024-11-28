@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQs</title>
+    <style>
+        /* Add your CSS here */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #008080;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .faq {
+            margin-bottom: 20px;
+        }
+
+        .faq h2 {
+            font-size: 18px;
+            color: #006666;
+            cursor: pointer;
+            margin: 0;
+            transition: color 0.3s ease;
+        }
+
+        .faq h2:hover {
+            color: #008080;
+        }
+
+        .faq p {
+            font-size: 14px;
+            margin: 5px 0 0 0;
+            display: none; /* Initially hide the answers */
+            padding: 10px;
+            background-color: #f1f1f1;
+            border-left: 4px solid #008080;
+            border-radius: 5px;
+        }
+
+        .faq.active p {
+            display: block; /* Show the answer when active */
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 30px;
+            text-align: center;
+            color: #008080;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Frequently Asked Questions</h1>
+
+        <div class="faq">
+            <h2>What is this website for?</h2>
+            <p>This website helps users detect deepfake media by analyzing images and videos for signs of manipulation.</p>
+        </div>
+
+        <div class="faq">
+            <h2>How do I reset my password?</h2>
+            <p>If you forget your password, you can reset it by clicking the "Forgot Password" link on the login page and answering your security question.</p>
+        </div>
+
+        <div class="faq">
+            <h2>What file formats are supported?</h2>
+            <p>We currently support PNG, JPEG, JPG for images, and MP4, AVI for videos.</p>
+        </div>
+
+        <div class="faq">
+            <h2>Is my data secure?</h2>
+            <p>Yes, we prioritize your data's security by following best practices in encryption and user authentication.</p>
+        </div>
+
+        <div class="faq">
+            <h2>How long does it take to detect a deepfake?</h2>
+            <p>The detection time may vary depending on the file size and type, but typically it takes only a few seconds to process.</p>
+        </div>
+
+        <div class="faq">
+            <h2>Can I upload multiple files at once?</h2>
+            <p>Currently, you can only upload one file at a time for detection. We are working on adding support for multiple file uploads.</p>
+        </div>
+
+        <div class="faq">
+            <h2>Do I need an account to use this service?</h2>
+            <p>Yes, you need to create an account to upload files and view detection results. This helps us ensure data security and provide a personalized experience.</p>
+        </div>
+
+        <div class="faq">
+            <h2>What should I do if I suspect a video is a deepfake?</h2>
+            <p>If you suspect a video is a deepfake, you can upload it to our platform for analysis. If confirmed, please report it to the appropriate authorities or platform administrators.</p>
+        </div>
+
+        <a href="/" class="back-link">Back to Homepage</a>
+    </div>
+
+    <script>
+        // Toggle visibility of answers when the questions are clicked
+        document.querySelectorAll('.faq h2').forEach(question => {
+            question.addEventListener('click', () => {
+                const faq = question.parentElement;
+                faq.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>
